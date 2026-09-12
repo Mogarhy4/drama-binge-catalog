@@ -243,5 +243,22 @@ def main():
     print("Bot is up and listening...")
     app.run_polling(drop_pending_updates=True)
 
+import threading
+from http.server import HTTPServer, BaseHTTPRequestHandler
+
+# Dummy web server to satisfy Render's Web Service port requirement
+class HealthCheckHandler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.end_headers()
+        self.wfile.write(b"Bot is active and running!")
+
+def run_health_server():
+    server = HTTPServer(('0.0.0.0', 10000), HealthCheckHandler)
+    server.serve_forever()
+
+# Start the web server in a background thread
+threading.Thread(target=run_health_server, daemon=True).start()
+
 if __name__ == "__main__":
     main()
