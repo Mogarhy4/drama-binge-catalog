@@ -31,7 +31,6 @@ DATABASE = {
             }
         ]
     },
-
     "flash_marriage": {
         "title": "⚡ Flash Marriage",
         "series": [
@@ -67,7 +66,6 @@ DATABASE = {
             }
         ]
     },
-
     "campus": {
         "title": "🏛️ Campus",
         "series": [
@@ -128,13 +126,9 @@ def build_catalog_keyboard():
     keyboard = []
     row = []
     for title, cat_key in CATEGORIES:
-        # Dynamically calculate series count from DATABASE to display on the button
         cat_data = DATABASE.get(cat_key)
         series_count = len(cat_data["series"]) if cat_data and "series" in cat_data else 0
-        
-        # Append count tag to button title (e.g., "[2 Series]")
         display_title = f"{title} [{series_count}]"
-        
         url = f"https://t.me/{BOT_USERNAME}?start={cat_key}"
         row.append(InlineKeyboardButton(display_title, url=url))
         if len(row) == 2:
@@ -177,7 +171,6 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
 async def handle_video_upload(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    # Check if the user sending the video is an admin
     if update.effective_user.id not in ADMIN_IDS:
         await update.message.reply_text("🎬 Welcome! Use our channel links to browse and watch series.")
         return
@@ -295,7 +288,6 @@ def main():
 import threading
 from http.server import HTTPServer, BaseHTTPRequestHandler
 
-# Dummy web server to satisfy Render's Web Service port requirement
 class HealthCheckHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         self.send_response(200)
@@ -306,7 +298,6 @@ def run_health_server():
     server = HTTPServer(('0.0.0.0', 10000), HealthCheckHandler)
     server.serve_forever()
 
-# Start the web server in a background thread
 threading.Thread(target=run_health_server, daemon=True).start()
 
 if __name__ == "__main__":
