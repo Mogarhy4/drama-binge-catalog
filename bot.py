@@ -68,7 +68,7 @@ DATABASE = {
         ]
     },
 
-    "campus_cinderella": {
+    "campus": {
         "title": "🏛️ Campus",
         "series": [
             {
