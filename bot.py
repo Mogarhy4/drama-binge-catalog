@@ -20,38 +20,80 @@ DATABASE = {
                 "episodes": [
                     {"name": "Episode 1", "file_id": "BAACAgQAAxkBAAMiaqXIO0oDWKj3xS1ZofseV37F25UAAkgeAAJx7ihRE4jy3T8Z6909BA"},
                     {"name": "Episode 2", "file_id": "BAACAgQAAxkBAAMsaqXKNAr6csp1C43OI64fy30NP5gAAkoeAAJx7ihREz6FBDXCYaU9BA"},
-		    {"name": "Episode 3", "file_id": "BAACAgQAAxkBAAMuaqXKWexL7VveH-4zzLgy5KiGmtUAAkseAAJx7ihRefpl2CgvkUQ9BA"},
-		    {"name": "Episode 4", "file_id": "BAACAgQAAxkBAAMwaqXKkHcOBZNGcKpi2B67jdWaj6wAAkweAAJx7ihR_NGjoBi0g0Y9BA"},
-		    {"name": "Episode 5", "file_id": "BAACAgQAAxkBAAMyaqXKuRqCy1OzF-DIpUfMLCSOlDoAAvUgAAJx7jBRNl0xpSX8XLQ9BA"},
-   		    {"name": "Episode 6", "file_id": "BAACAgQAAxkBAAM0aqXK3L0jdGngklPnpaIq-IerCUwAAvYgAAJx7jBRYQHen2xEnQs9BA"},
-		    {"name": "Episode 7", "file_id": "BAACAgQAAxkBAAM2aqXLCtYRNZ5hKu5oBmqV-7vPWxcAAvcgAAJx7jBR5t580ZWkbXM9BA"},
-		    {"name": "Episode 8", "file_id": "BAACAgQAAxkBAAM4aqXLKufSQNg8wbFmw_LVQ1MpFj8AAvggAAJx7jBRQdT--Oayq-M9BA"},
-		    {"name": "Episode 9", "file_id": "BAACAgQAAxkBAAM6aqXLSETumJjVn4INiTOVZLKWBR8AAvkgAAJx7jBRZ1qxRCKbOu89BA"},
-                ]
-            },
-            {
-                "name": "Hidden Hearts",
-                "episodes": [
-                    {"name": "Episode 1", "file_id": "PASTE_YOUR_FILE_ID_FOR_HIDDEN_HEARTS_EP1"},
+                    {"name": "Episode 3", "file_id": "BAACAgQAAxkBAAMuaqXKWexL7VveH-4zzLgy5KiGmtUAAkseAAJx7ihRefpl2CgvkUQ9BA"},
+                    {"name": "Episode 4", "file_id": "BAACAgQAAxkBAAMwaqXKkHcOBZNGcKpi2B67jdWaj6wAAkweAAJx7ihR_NGjoBi0g0Y9BA"},
+                    {"name": "Episode 5", "file_id": "BAACAgQAAxkBAAMyaqXKuRqCy1OzF-DIpUfMLCSOlDoAAvUgAAJx7jBRNl0xpSX8XLQ9BA"},
+                    {"name": "Episode 6", "file_id": "BAACAgQAAxkBAAM0aqXK3L0jdGngklPnpaIq-IerCUwAAvYgAAJx7jBRYQHen2xEnQs9BA"},
+                    {"name": "Episode 7", "file_id": "BAACAgQAAxkBAAM2aqXLCtYRNZ5hKu5oBmqV-7vPWxcAAvcgAAJx7jBR5t580ZWkbXM9BA"},
+                    {"name": "Episode 8", "file_id": "BAACAgQAAxkBAAM4aqXLKufSQNg8wbFmw_LVQ1MpFj8AAvggAAJx7jBRQdT--Oayq-M9BA"},
+                    {"name": "Episode 9", "file_id": "BAACAgQAAxkBAAM6aqXLSETumJjVn4INiTOVZLKWBR8AAvkgAAJx7jBRZ1qxRCKbOu89BA"}
                 ]
             }
         ]
     },
-    "strong_female_lead": {
-        "title": "⚡ Strong Female Lead",
+
+    "flash_marriage": {
+        "title": "⚡ Flash Marriage",
         "series": [
             {
-                "name": "Queen's Revenge",
+                "name": "Top Gear Guy Finds His Mr's Right",
                 "episodes": [
-                    {"name": "Episode 1", "file_id": "PASTE_YOUR_FILE_ID_HERE"},
+                    {"name": "Episode 1", "file_id": "BAACAgQAAxkBAANNaqbxn4cH_2EckwABc2yeGBv-nXKGAAJ9IwACfzE5UWYPInSD9_tfPQQ"},
+                    {"name": "Episode 2", "file_id": "BAACAgQAAxkBAANPaqbxuUi7dg0g3zbUKrJS7YgYfCoAAn4jAAJ_MTlRPUw0R1YCoyU9BA"},
+                    {"name": "Episode 3", "file_id": "BAACAgQAAxkBAANRaqbx0u1RbFVEUjDgePY0Ad95IZYAAn8jAAJ_MTlRJyZ8suJwrLQ9BA"},
+                    {"name": "Episode 4", "file_id": "BAACAgQAAxkBAANTaqbx8Pgk9XT7C5wCNToZG81supgAAoAjAAJ_MTlRXFFtfEo99qE9BA"},
+                    {"name": "Episode 5", "file_id": "BAACAgQAAxkBAANVaqbyCO0hHuAtt1GNozsIn8aZirQAAoEjAAJ_MTlRuENBLA5zPB89BA"},
+                    {"name": "Episode 6", "file_id": "BAACAgQAAxkBAANXaqbyJlz5LERs2iHrvkcgAAFJ0t9MAAKCIwACfzE5UWShY-MNSTeZPQQ"},
+                    {"name": "Episode 7", "file_id": "BAACAgQAAxkBAANZaqbyOt8uzayBT-7NqxGxely94swAAoMjAAJ_MTlRiYkm6vD2HwQ9BA"},
+                    {"name": "Episode 8", "file_id": "BAACAgQAAxkBAANbaqbyV9rVHQhvH7o90k4tOLhTligAAoQjAAJ_MTlRebThkfH0W9c9BA"},
+                    {"name": "Episode 9", "file_id": "BAACAgQAAxkBAANdaqbycETKUizPsigp1QqygDhbbvgAAoUjAAJ_MTlRfrt4bA1SZ5c9BA"},
+                    {"name": "Episode 10", "file_id": "BAACAgQAAxkBAANfaqbykLC5tMKgmmo4GtQznMNYc9cAAoYjAAJ_MTlRzc216qqRO8Q9BA"}
+                ]
+            },
+            {
+                "name": "The Substitute Brid For The First Vampire",
+                "episodes": [
+                    {"name": "Episode 1", "file_id": "BAACAgQAAxkBAAN1aqb4grTBsMswbWGdLiEsKYy8kr0AAqwjAAJ_MTlR7FDVDcMaIB49BA"},
+                    {"name": "Episode 2", "file_id": "BAACAgQAAxkBAAN2aqb4gpofp3wChBruRJ_gmvLUSikAAq0jAAJ_MTlRM17o3JN9NOA9BA"},
+                    {"name": "Episode 3", "file_id": "BAACAgQAAxkBAAN3aqb4giM4UPGLBCCF7M7j_uBkJiYAAq4jAAJ_MTlRIYB9FadFD0o9BA"},
+                    {"name": "Episode 4", "file_id": "BAACAgQAAxkBAAN4aqb4gny8QxrYIYzbleHMFQaK0DYAAq8jAAJ_MTlRgBjDAfK2ER49BA"},
+                    {"name": "Episode 5", "file_id": "BAACAgQAAxkBAAN5aqb4guOaf1bpvC0HId0nXipIoewAArAjAAJ_MTlRhUlf1SzSvo49BA"},
+                    {"name": "Episode 6", "file_id": "BAACAgQAAxkBAAN6aqb4goErsNQjkamJDIH4_HYHv4kAArEjAAJ_MTlRFqJGHJZSgEQ9BA"},
+                    {"name": "Episode 7", "file_id": "BAACAgQAAxkBAAN7aqb4gqKQctesKPiY1dWllthVXegAArIjAAJ_MTlRR5dd-9Dim8I9BA"},
+                    {"name": "Episode 8", "file_id": "BAACAgQAAxkBAAN8aqb4gvkY-hFDMoPmfjekdSNTy_EAArMjAAJ_MTlRRXqSctmgaxE9BA"},
+                    {"name": "Episode 9", "file_id": "BAACAgQAAxkBAAN9aqb4gknuUO82FOk4ctaGE7fHZh8AArQjAAJ_MTlR4HsBnAmIrNA9BA"},
+                    {"name": "Episode 10", "file_id": "BAACAgQAAxkBAAN-aqb4gizEgnLwC3kyIYbME3v4lbwAArUjAAJ_MTlRSbojaqzWYX49BA"}
                 ]
             }
         ]
-    }
+    },
+
+    "campus_cinderella": {
+        "title": "🏛️ Campus & Cinderella",
+        "series": [
+            {
+                "name": "My Finace's Brother Owns Me Every Night",
+                "episodes": [
+                    {"name": "Episode 1", "file_id": "BAACAgQAAxkBAANhaqb3efrL7tY5NfwC8SxTKAIVL1UAAqAjAAJ_MTlRt9WoOZbCteM9BA"},
+                    {"name": "Episode 2", "file_id": "BAACAgQAAxkBAANiaqb3ef_lYT7JahE06to0w8CXhs8AAqEjAAJ_MTlRdj2KkHqxic89BA"},
+                    {"name": "Episode 3", "file_id": "BAACAgQAAxkBAANlaqb3vNs4AjFwRrs_uYbYWG_Lk9sAAqIjAAJ_MTlRotaM9-OrPrs9BA"},
+                    {"name": "Episode 4", "file_id": "BAACAgQAAxkBAANmaqb3vMd3Xvoj3bc0oQABnyCE9tuZAAKjIwACfzE5UWqoyihuYHT3PQQ"},
+                    {"name": "Episode 5", "file_id": "BAACAgQAAxkBAANnaqb3vMKO0oBT-DpuG8_d_nwtQ3cAAqQjAAJ_MTlRh77C4JKCBek9BA"},
+                    {"name": "Episode 6", "file_id": "BAACAgQAAxkBAANoaqb3vNaWlNbV2NwEJu1OLsIg_IQAAqUjAAJ_MTlRrRye3AMxluQ9BA"},
+                    {"name": "Episode 7", "file_id": "BAACAgQAAxkBAANpaqb3vAAB0YzhIt23-lkn4jT0f3nlAAKmIwACfzE5UdkEa-OLo7_XPQQ"},
+                    {"name": "Episode 8", "file_id": "BAACAgQAAxkBAANqaqb3vHMgP6WFOUC3x32WZTWZYf0AAqcjAAJ_MTlReIy4y0etlsU9BA"},
+                    {"name": "Episode 9", "file_id": "BAACAgQAAxkBAANraqb3vDLV7cqBmZYp2_IzW3Cf27MAAqgjAAJ_MTlRahMBsogvwt89BA"},
+                    {"name": "Episode 10", "file_id": "BAACAgQAAxkBAANsaqb3vMxeo-l64oRWpab6dwSPODkAAqkjAAJ_MTlRmSJLMSGXgmg9BA"}
+                ]
+            }
+        ]
+    },
 }
 
 CATEGORIES = [
     ("🔥 Forbidden Love", "forbidden_love"),
+    ("⚡ Flash Marriage", "flash_marriage"),
+    ("🏛️ Campus & Cinderella", "campus_cinderella"),
     ("⚡ Strong Female Lead", "strong_female_lead"),
     ("💍 Contract Marriage", "contract_marriage"),
     ("❤️ Love After Marriage", "love_after_marriage"),
@@ -86,8 +128,15 @@ def build_catalog_keyboard():
     keyboard = []
     row = []
     for title, cat_key in CATEGORIES:
+        # Dynamically calculate series count from DATABASE to display on the button
+        cat_data = DATABASE.get(cat_key)
+        series_count = len(cat_data["series"]) if cat_data and "series" in cat_data else 0
+        
+        # Append count tag to button title (e.g., "[2 Series]")
+        display_title = f"{title} [{series_count}]"
+        
         url = f"https://t.me/{BOT_USERNAME}?start={cat_key}"
-        row.append(InlineKeyboardButton(title, url=url))
+        row.append(InlineKeyboardButton(display_title, url=url))
         if len(row) == 2:
             keyboard.append(row)
             row = []
