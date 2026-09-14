@@ -147,6 +147,102 @@ DATABASE = {
                     {"name": "Episode 9", "file_id": "BQACAgQAAxkBAAIBMmqntOM93a3EtmVJ19Dh1C63CTahAAJiHwACfzFBUW9NzHWntiXqPQQ"},
                     {"name": "Episode 10", "file_id": "BQACAgQAAxkBAAIBM2qntON8Q4nUevJDCzkAAbo8t7nefgACYx8AAn8xQVFGOzZiEw_XfT0E"}
                 ]
+            },
+            {
+                "name": "Owned By My Husband's Sister",
+                "episodes": [
+                    {"name": "Episode 1", "file_id": "BQACAgQAAxkBAAIBqGqn1AWkzZ3eGcCQs-mwCtUUmzaZAALJHwACfzFBUSDTTOmgL75mPQQ"},
+                    {"name": "Episode 2", "file_id": "BQACAgQAAxkBAAIBqWqn1AX71Q0XSZDm79qlS1lC-CIAA8ofAAJ_MUFRjcxTwrTM-TM9BA"},
+                    {"name": "Episode 3", "file_id": "BQACAgQAAxkBAAIBqmqn1AXGCT79rIG4dqBqOs5RUk9_AALLHwACfzFBUd9kJVa9u5snPQQ"},
+                    {"name": "Episode 4", "file_id": "BQACAgQAAxkBAAIBq2qn1AXmFkIalBH_JvgbMHmjxqMxAALMHwACfzFBUYLGRjLw6984PQQ"},
+                    {"name": "Episode 5", "file_id": "BQACAgQAAxkBAAIBsGqn1Gk1qMYEnvP1AAENlw7nRYzWVwACzR8AAn8xQVFAJTb7l9Hikz0E"},
+                    {"name": "Episode 6", "file_id": "BQACAgQAAxkBAAIBsWqn1GnkuVuZ1ncAAah4ezRXgehh2gACzh8AAn8xQVHWbsQ3tCDgFD0E"},
+                    {"name": "Episode 6", "file_id": "BQACAgQAAxkBAAIBsmqn1Gk4oi0Jx1FUOr2cGoW67oE0AALPHwACfzFBUT254xrPaeu8PQQ"}
+                ]
+            }
+        ]
+    },
+
+    "vampire": {
+        "title": "🧛 Vampire",
+        "series": [
+            {
+                "name": "Too Late To Love His Substitute Slave",
+                "episodes": [
+                    {"name": "Episode 1", "file_id": "BQACAgQAAxkBAAIBcmqn0GwBlkQEYxXRYbvGwVZNcCW2AAKgHwACfzFBUeWK3G0ILicZPQQ"},
+                    {"name": "Episode 2", "file_id": "BQACAgQAAxkBAAIBc2qn0GydCF3fiPO3xQqmXCGvXnAUAAKhHwACfzFBUW7jvB73e9CyPQQ"},
+                    {"name": "Episode 3", "file_id": "BQACAgQAAxkBAAIBdGqn0Gx0hkA3Xdc6ki77WQfO-IUSAAKiHwACfzFBUeoeAAEStDVOqD0E"},
+                    {"name": "Episode 4", "file_id": "BQACAgQAAxkBAAIBdWqn0GxoBMhqZjfib5EI1SEm5fnkAAKjHwACfzFBUZTUtbf_5hOcPQQ"},
+                    {"name": "Episode 5", "file_id": "BQACAgQAAxkBAAIBdmqn0GwDlcIXKNkgSWZIgvpgB4tLAAKkHwACfzFBUbPeCvLWaM2CPQQ"},
+                    {"name": "Episode 6", "file_id": "BQACAgQAAxkBAAIBd2qn0GzRCHIbues9O-Rv9ZWRvmUPAAKlHwACfzFBUQx7GXbAWYrrPQQ"},
+                    {"name": "Episode 7", "file_id": "BQACAgQAAxkBAAIBeGqn0Gy5Ag-B0ME9Q4YcqQ-dnXsvAAKmHwACfzFBUWP5YGR9mD6kPQQ"},
+                    {"name": "Episode 8", "file_id": "BQACAgQAAxkBAAIBeWqn0GzmiQdLMY-rWjayLEj5-N1FAAKnHwACfzFBUb7IBpIXCqv-PQQ"}
+                ]
+            },
+            {
+                "name": "The Mermaid Queen Rises From Betrayal",
+                "episodes": [
+                    {"name": "Episode 1", "file_id": "BAACAgQAAxkBAAIBhGqn0ZsyNPJryCMCwAnZkA06LSvPAAKyHwACfzFBUbp2V6bJ4MV7PQQ"},
+                    {"name": "Episode 2", "file_id": "BAACAgQAAxkBAAIBhmqn0alTdIK9pFfd46dkwHnXliFaAAKzHwACfzFBUVdmaza5Wg2ePQQ"},
+                    {"name": "Episode 3", "file_id": "BAACAgQAAxkBAAIBhmqn0alTdIK9pFfd46dkwHnXliFaAAKzHwACfzFBUVdmaza5Wg2ePQQ"},
+                    {"name": "Episode 4", "file_id": "BQACAgQAAxkBAAIBimqn0b1t6PdfjVmXjusmd0CECpq5AAK2HwACfzFBUe1J02P5rcxrPQQ"},
+                    {"name": "Episode 5", "file_id": "BQACAgQAAxkBAAIBjGqn0cg4hYEhUbcF8cVOF9eUEeCeAAK3HwACfzFBUbdGt4idyrRUPQQ"},
+                    {"name": "Episode 6", "file_id": "BQACAgQAAxkBAAIBjmqn0dCMIiRY-HTQgQ6SuiWo2PNOAAK5HwACfzFBUWwOuYAhWH4dPQQ"}
+                ]
+            }
+        ]
+    },
+
+    "cheating": {
+        "title": "💔 Cheating",
+        "series": [
+            {
+                "name": "The Captian Secret Wife Was The Real Ace",
+                "episodes": [
+                    {"name": "Episode 1", "file_id": "BQACAgQAAxkBAAIBkGqn0tl_bAF3ry6bhyIWoVV5Cq4UAAK8HwACfzFBUYC6bAABVP4ecD0E"},
+                    {"name": "Episode 2", "file_id": "BQACAgQAAxkBAAIBkWqn0tnPPXfXTKK9Vn33NPc0eg6oAAK9HwACfzFBUf43JNXgIzABPQQ"},
+                    {"name": "Episode 3", "file_id": "BQACAgQAAxkBAAIBkmqn0tkh-U7_bnK9A2o_J08GRNCKAAK-HwACfzFBUT2ZJYMQA8VUPQQ"},
+                    {"name": "Episode 4", "file_id": "BQACAgQAAxkBAAIBk2qn0tlCpDATX3f-eDsAAWvhEmbzCQACvx8AAn8xQVH5--PGP5Wi5z0E"},
+                    {"name": "Episode 5", "file_id": "BQACAgQAAxkBAAIBlGqn0tmzlPHnbu6xy6poO25-7bvTAALAHwACfzFBUeYWd_S_9HEwPQQ"},
+                    {"name": "Episode 6", "file_id": "BQACAgQAAxkBAAIBlWqn0tk0P-RlysRYSb8aRtB7QUK9AALBHwACfzFBUT2IUWOZ_QkRPQQ"},
+                    {"name": "Episode 7", "file_id": "BQACAgQAAxkBAAIBlmqn0tkUx7522iAj_PJiEW7lzewCAALCHwACfzFBUQjrJLMMkFlCPQQ"},
+                    {"name": "Episode 8", "file_id": "BQACAgQAAxkBAAIBl2qn0tk2iUPZDEQ8gyVTdpPrEDP6AALDHwACfzFBUY33fx8vhrN6PQQ"},
+                    {"name": "Episode 9", "file_id": "BQACAgQAAxkBAAIBomqn01EeiEvurgP-jO3aK4AsTT4NAALFHwACfzFBUaXCzNIF-2AbPQQ"},
+                    {"name": "Episode 10", "file_id": "BQACAgQAAxkBAAIBo2qn01Gw4WwtvEwnjXN6A4jL2696AALGHwACfzFBUVCJ-rp-H9m6PQQ"},
+                    {"name": "Episode 11", "file_id": "BQACAgQAAxkBAAIBpGqn01HMsxct3WkJI7lx0Zc9GAQ_AALHHwACfzFBUZNd4bWNSHr7PQQ"}
+                ]
+            }
+        ]
+    },
+
+    "werewolf": {
+        "title": "🐺 Werewolf",
+        "series": [
+            {
+                "name": "The Hidden Dragon Rider Returns For Justice",
+                "episodes": [
+                    {"name": "Episode 1", "file_id": "BQACAgQAAxkBAAIByGqn1WHU9532EAGmzrYOGXCkR77VAALaHwACfzFBUdLx72_w5kXFPQQ"},
+                    {"name": "Episode 2", "file_id": "BQACAgQAAxkBAAIBtmqn1QQB58lDIY6xqd7zrbu_4X7MAALRHwACfzFBUUnh6ZZG1srAPQQ"},
+                    {"name": "Episode 3", "file_id": "BQACAgQAAxkBAAIBt2qn1QSRvU5cOb-RglLVcODPlLKhAALSHwACfzFBUeb1NnP2PvThPQQ"},
+                    {"name": "Episode 4", "file_id": "BQACAgQAAxkBAAIBuGqn1QStCvr9eJrBu2jNn5C_WNdAAALTHwACfzFBUZXyN-zX_AfOPQQ"},
+                    {"name": "Episode 5", "file_id": "BQACAgQAAxkBAAIBuWqn1QSKeAvWRIN7zOcYiG_GM9wrAALUHwACfzFBUeOw5S2QjOMnPQQ"},
+                    {"name": "Episode 6", "file_id": "BQACAgQAAxkBAAIBumqn1QR9XwABuE5AP9Gc9j9OdcSN4wAC1R8AAn8xQVG8z3w-GM_XJT0E"},
+                    {"name": "Episode 7", "file_id": "BQACAgQAAxkBAAIBu2qn1QSVQo9NXavQYdoFeBIqXZ5JAALWHwACfzFBUTUKrlMKByJqPQQ"},
+                    {"name": "Episode 8", "file_id": "BQACAgQAAxkBAAIBvGqn1QTZHBi6MkR0rqQ5mkCS7LlyAALXHwACfzFBUTZfzARGZL4yPQQ"},
+                    {"name": "Episode 9", "file_id": "BQACAgQAAxkBAAIBvWqn1QQzBVCT--NmxKW_ZAXU-5Q4AALYHwACfzFBUXB4RLRulh8zPQQ"},
+                    {"name": "Episode 10", "file_id": "BQACAgQAAxkBAAIBvmqn1QQKp43IkhnX9Fzzr7lU_UY4AALZHwACfzFBUXcg3Rn2Erp8PQQ"}
+                ]
+            },
+            {
+                "name": "Fall In Love With Claws And Fangs",
+                "episodes": [
+                    {"name": "Episode 1", "file_id": "BQACAgQAAxkBAAIBymqn1jPHIQ5ZM-scdD8X3uYvcGc0AALbHwACfzFBUXxOaQg1Kva9PQQ"},
+                    {"name": "Episode 2", "file_id": "BQACAgQAAxkBAAIBy2qn1jMgF6v2e_G_08v56zYmVL3PAALcHwACfzFBUSDw6pfyBkD_PQQ"},
+                    {"name": "Episode 3", "file_id": "BQACAgQAAxkBAAIBzGqn1jNjeRxPHfdxHwfjSB1YqZw_AALdHwACfzFBUbkHQRx63bS1PQQ"},
+                    {"name": "Episode 4", "file_id": "BQACAgQAAxkBAAIBzWqn1jPxHl-wLBfNFnsl2LX7fFBBAALeHwACfzFBUajdq2G3F1TDPQQ"},
+                    {"name": "Episode 5", "file_id": "BQACAgQAAxkBAAIB0mqn1msMIBLEzeJv_eYQ8giE_pmOAALfHwACfzFBUfAPUOnXjXujPQQ"},
+
+                ]
             }
         ]
     },
@@ -157,8 +253,9 @@ CATEGORIES = [
     ("⚡ Flash Marriage", "flash_marriage"),
     ("🏛️ Campus", "campus_cinderella"),
     ("⚡ Strong Female", "strong_female"),
-    ("💍 Contr. Marriage", "contract_marriage"),
-    ("❤️ After Marriage", "love_after_marriage"),
+    ("🐺 Werewolf", "werewolf"),
+    ("🧛 Vampire", "vampire"),
+    ("💔 Cheating", "cheating"),
     ("🏃‍♂️ Chasing Love", "chasing_love"),
     ("⚠️ Toxic Love", "toxic_love"),
     ("💔 Getting Back 💔", "getting_back_💔"),
