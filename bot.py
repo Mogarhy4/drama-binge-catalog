@@ -187,7 +187,7 @@ DATABASE = {
                     {"name": "Episode 3", "file_id": "BAACAgQAAxkBAAIBhmqn0alTdIK9pFfd46dkwHnXliFaAAKzHwACfzFBUVdmaza5Wg2ePQQ"},
                     {"name": "Episode 4", "file_id": "BQACAgQAAxkBAAIBimqn0b1t6PdfjVmXjusmd0CECpq5AAK2HwACfzFBUe1J02P5rcxrPQQ"},
                     {"name": "Episode 5", "file_id": "BQACAgQAAxkBAAIBjGqn0cg4hYEhUbcF8cVOF9eUEeCeAAK3HwACfzFBUbdGt4idyrRUPQQ"},
-                    {"name": "Episode 6", "file_id": "BQACAgQAAxkBAAIBjmqn0dCMIiRY-HTQgQ6SuiWo2PNOAAK5HwACfzFBUWwOuYAhWH4dPQQ"}
+                    {"name": "Episode 6", "file_id": "BAACAgQAAxkBAAIBjmqn0dCMIiRY-HTQgQ6SuiWo2PNOAAK5HwACfzFBUWwOuYAhWH4dPQQ"}
                 ]
             }
         ]
@@ -284,7 +284,14 @@ CATEGORIES = [
 ]
 
 def build_catalog_keyboard():
-    keyboard = []
+    # 1. Dynamically calculate total available series across all categories in the DATABASE
+    total_series = sum(len(cat_data.get("series", [])) for cat_data in DATABASE.values())
+    
+    # 2. Add the total series counter row at the very top (non-clickable status indicator)
+    keyboard = [
+        [InlineKeyboardButton(f"🔥 Total Available Series: {total_series}", callback_data="total_counter")]
+    ]
+    
     row = []
     for title, cat_key in CATEGORIES:
         cat_data = DATABASE.get(cat_key)
@@ -355,6 +362,11 @@ async def button_click(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
     data = query.data
+
+    if data == "total_counter":
+        # Optional: You can answer with a small alert when users tap the top counter button
+        await query.answer("🔥 This shows the total active series in our database!", show_alert=False)
+        return
 
     if data == "main_menu":
         reply_markup = build_catalog_keyboard()
