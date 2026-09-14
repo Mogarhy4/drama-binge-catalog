@@ -1,17 +1,34 @@
-# Add your Telegram numeric user ID here
-ADMIN_IDS = [932575497]
-
+import os
+import threading
 import logging
+from http.server import HTTPServer, BaseHTTPRequestHandler
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import ApplicationBuilder, CallbackQueryHandler, CommandHandler, MessageHandler, ContextTypes, filters
-import threading
-from http.server import HTTPServer, BaseHTTPRequestHandler
-import os
 
-logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO)
-
+# Configuration
+ADMIN_IDS = [932575497]
 CHANNEL_USERNAME = "@DramaClipsBingeShorts"
 BOT_USERNAME = "DramaBingeCatalog_bot"
+
+# Logging setup
+logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO)
+
+# 1. Lightweight health check server for Render & UptimeRobot
+class HealthCheckHandler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.end_headers()
+        self.wfile.write(b"Bot is alive!")
+    def log_message(self, format, *args):
+        pass  # Keeps logs clean
+
+def run_health_server():
+    port = int(os.environ.get("PORT", 10000))
+    server = HTTPServer(("0.0.0.0", port), HealthCheckHandler)
+    server.serve_forever()
+
+# 2. Start the health-check server in the background thread
+threading.Thread(target=run_health_server, daemon=True).start()
 
 # 3-Tier Database: Category -> Series (with multiple episodes)
 DATABASE = {
