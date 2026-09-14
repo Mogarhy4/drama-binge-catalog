@@ -4,6 +4,9 @@ ADMIN_IDS = [932575497]
 import logging
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import ApplicationBuilder, CallbackQueryHandler, CommandHandler, MessageHandler, ContextTypes, filters
+import threading
+from http.server import HTTPServer, BaseHTTPRequestHandler
+import os
 
 logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO)
 
@@ -157,7 +160,7 @@ DATABASE = {
                     {"name": "Episode 4", "file_id": "BQACAgQAAxkBAAIBq2qn1AXmFkIalBH_JvgbMHmjxqMxAALMHwACfzFBUYLGRjLw6984PQQ"},
                     {"name": "Episode 5", "file_id": "BQACAgQAAxkBAAIBsGqn1Gk1qMYEnvP1AAENlw7nRYzWVwACzR8AAn8xQVFAJTb7l9Hikz0E"},
                     {"name": "Episode 6", "file_id": "BQACAgQAAxkBAAIBsWqn1GnkuVuZ1ncAAah4ezRXgehh2gACzh8AAn8xQVHWbsQ3tCDgFD0E"},
-                    {"name": "Episode 6", "file_id": "BQACAgQAAxkBAAIBsmqn1Gk4oi0Jx1FUOr2cGoW67oE0AALPHwACfzFBUT254xrPaeu8PQQ"}
+                    {"name": "Episode 7", "file_id": "BQACAgQAAxkBAAIBsmqn1Gk4oi0Jx1FUOr2cGoW67oE0AALPHwACfzFBUT254xrPaeu8PQQ"}
                 ]
             }
         ]
@@ -186,7 +189,7 @@ DATABASE = {
                     {"name": "Episode 2", "file_id": "BAACAgQAAxkBAAIBhmqn0alTdIK9pFfd46dkwHnXliFaAAKzHwACfzFBUVdmaza5Wg2ePQQ"},
                     {"name": "Episode 3", "file_id": "BAACAgQAAxkBAAIBhmqn0alTdIK9pFfd46dkwHnXliFaAAKzHwACfzFBUVdmaza5Wg2ePQQ"},
                     {"name": "Episode 4", "file_id": "BQACAgQAAxkBAAIBimqn0b1t6PdfjVmXjusmd0CECpq5AAK2HwACfzFBUe1J02P5rcxrPQQ"},
-                    {"name": "Episode 5", "file_id": "BQACAgQAAxkBAAIBjGqn0cg4hYEhUbcF8cVOF9eUEeCeAAK3HwACfzFBUbdGt4idyrRUPQQ"},
+                    {"name": "Episode 5", "file_id": "BAACAgQAAxkBAAIBjGqn0cg4hYEhUbcF8cVOF9eUEeCeAAK3HwACfzFBUbdGt4idyrRUPQQ"},
                     {"name": "Episode 6", "file_id": "BAACAgQAAxkBAAIBjmqn0dCMIiRY-HTQgQ6SuiWo2PNOAAK5HwACfzFBUWwOuYAhWH4dPQQ"}
                 ]
             }
@@ -240,12 +243,96 @@ DATABASE = {
                     {"name": "Episode 2", "file_id": "BQACAgQAAxkBAAIBy2qn1jMgF6v2e_G_08v56zYmVL3PAALcHwACfzFBUSDw6pfyBkD_PQQ"},
                     {"name": "Episode 3", "file_id": "BQACAgQAAxkBAAIBzGqn1jNjeRxPHfdxHwfjSB1YqZw_AALdHwACfzFBUbkHQRx63bS1PQQ"},
                     {"name": "Episode 4", "file_id": "BQACAgQAAxkBAAIBzWqn1jPxHl-wLBfNFnsl2LX7fFBBAALeHwACfzFBUajdq2G3F1TDPQQ"},
-                    {"name": "Episode 5", "file_id": "BQACAgQAAxkBAAIB0mqn1msMIBLEzeJv_eYQ8giE_pmOAALfHwACfzFBUfAPUOnXjXujPQQ"},
-
+                    {"name": "Episode 5", "file_id": "BQACAgQAAxkBAAIB0mqn1msMIBLEzeJv_eYQ8giE_pmOAALfHwACfzFBUfAPUOnXjXujPQQ"}
                 ]
             }
         ]
     },
+
+    "regret": {
+        "title": "🥀 Regret",
+        "series": [
+            {
+                "name": "I Walked Away You Wasted Away",
+                "episodes": [
+                    {"name": "Episode 1", "file_id": "BQACAgQAAxkBAAICSWqoG4ThJsRrF_4zj-uYnV2-Wyg6AAKKIAACfzFBUXekrGfYzySCPQQ"},
+                    {"name": "Episode 2", "file_id": "BQACAgQAAxkBAAICSmqoG4TLkykipcCiLoMJeVgAAXmFRgACiyAAAn8xQVGjxFgej-m8Wj0E"},
+                    {"name": "Episode 3", "file_id": "BQACAgQAAxkBAAICS2qoG4QJ1sTv5IuN0p9zNnY6r4oOAAKMIAACfzFBUScf0AezDJt4PQQ"},
+                    {"name": "Episode 4", "file_id": "BQACAgQAAxkBAAICTGqoG4QinJrX91_Ae0JKzNofOGxzAAKNIAACfzFBUfecCq1zhWE4PQQ"},
+                    {"name": "Episode 5", "file_id": "BQACAgQAAxkBAAICTWqoG4TcSXNyPDLhMamazQhLHn8gAAKOIAACfzFBUQx9cUY7-1iZPQQ"},
+                    {"name": "Episode 6", "file_id": "BQACAgQAAxkBAAICTmqoG4SCXC2pcnyzKSVEcX7u1uhlAAKPIAACfzFBUZX8GHrsbQkuPQQ"},
+                    {"name": "Episode 7", "file_id": "BQACAgQAAxkBAAICT2qoG4TrZO9TfqZboHcUwPUN6BUYAAKQIAACfzFBUWWD4DwQJB_kPQQ"},
+                    {"name": "Episode 8", "file_id": "BQACAgQAAxkBAAICUGqoG4TAkLxwkSIvW1Iv8Qnxd128AAKRIAACfzFBUXNfwRwXszcIPQQ"},
+                    {"name": "Episode 9", "file_id": "BQACAgQAAxkBAAIBomqn01EeiEvurgP-jO3aK4AsTT4NAALFHwACfzFBUaXCzNIF-2AbPQQ"},
+                    {"name": "Episode 10", "file_id": "BQACAgQAAxkBAAICUmqoG4SWtYhLCEmw_2oCHjptno40AAKUIAACfzFBUVwKN9dgyshQPQQ"},
+                    {"name": "Episode 11", "file_id": "BQACAgQAAxkBAAICXWqoG4b6hvPgSwhrv9me27ISHwABugAClSAAAn8xQVGtFYZqXYy6Lj0E"}
+                ]
+            }
+        ]
+    },
+
+    "princess": {
+        "title": "👑 Princess",
+        "series": [
+            {
+                "name": "I Dumped Zeus:Th God King",
+                "episodes": [
+                    {"name": "Episode 1", "file_id": "BQACAgQAAxkBAAICX2qoHQ2EvTzN1ailR21mdwMWSwauAAKYIAACfzFBUYtsvWBvpY41PQQ"},
+                    {"name": "Episode 2", "file_id": "BQACAgQAAxkBAAICX2qoHQ2EvTzN1ailR21mdwMWSwauAAKYIAACfzFBUYtsvWBvpY41PQQ"},
+                    {"name": "Episode 3", "file_id": "BQACAgQAAxkBAAICYWqoHQ3CZKyxgbeZ-i1tbIzfvaX4AAKaIAACfzFBUaoTzQQSi2aSPQQ"},
+                    {"name": "Episode 4", "file_id": "BQACAgQAAxkBAAICYmqoHQ0JUwvYjpu2nsQvprT00D1WAAKbIAACfzFBUXT8ZPyi0WqbPQQ"},
+                    {"name": "Episode 5", "file_id": "BQACAgQAAxkBAAICZ2qoHaPcC6E7BzJfhJ-wjem1VjdxAAKdIAACfzFBUX3UGZ_GgLXuPQQ"},
+                    {"name": "Episode 6", "file_id": "BQACAgQAAxkBAAICZ2qoHaPcC6E7BzJfhJ-wjem1VjdxAAKdIAACfzFBUX3UGZ_GgLXuPQQ"},
+                    {"name": "Episode 7", "file_id": "BQACAgQAAxkBAAICaWqoHaPV13iHGuOKCSbz2t-_wuq8AAKgIAACfzFBUSgaMV9h5rq6PQQ"}
+                ]
+            }
+        ]
+    },
+
+    "family_kids": {
+        "title": "👨‍👩‍👧 Family & Kids",
+        "series": [
+            {
+                "name": "His Baby Girl Is A MAgical Beasts, Whisperer",
+                "episodes": [
+                    {"name": "Episode 1", "file_id": "BQACAgQAAxkBAAICbWqoHpg8tnBpECY9wf-7DcpLPZOKAAKkIAACfzFBUdSxqwvGtrCiPQQ"},
+                    {"name": "Episode 2", "file_id": "BQACAgQAAxkBAAICbmqoHphAoD_MbuHMKA6-dkG4w9_qAAKlIAACfzFBUY2Jg--Qp7wGPQQ"},
+                    {"name": "Episode 3", "file_id": "BQACAgQAAxkBAAICb2qoHpgEu7gJJm0GsgUgFuTRGFacAAKmIAACfzFBUUJLbx5lsIDYPQQ"},
+                    {"name": "Episode 4", "file_id": "BQACAgQAAxkBAAICcGqoHpjTAwI-aAH9Nk-Fyw9ptwnuAAKnIAACfzFBUfNzIIszNgX3PQQ"},
+                    {"name": "Episode 5", "file_id": "BQACAgQAAxkBAAICcWqoHphDWt19yRo5fMyer2YAARKJ1QACqCAAAn8xQVHCPEohihRWVD0E"},
+                    {"name": "Episode 6", "file_id": "BQACAgQAAxkBAAICcmqoHpgDRBZri0z8Vys6N-Cfl4k4AAKpIAACfzFBURAlIGRQraxpPQQ"},
+                    {"name": "Episode 7", "file_id": "BQACAgQAAxkBAAICc2qoHpg7HA9V-AIY1gbHW_bHk96yAAKqIAACfzFBUXKeD9MqcmWlPQQ"},
+                    {"name": "Episode 8", "file_id": "BQACAgQAAxkBAAICdGqoHpgohdz3-TvbAlx6MBJpw53LAAKrIAACfzFBUZcbz7b7L9yVPQQ"},
+                    {"name": "Episode 9", "file_id": "BQACAgQAAxkBAAICdWqoHphb2w5HzoCX7-8LClQPdE0pAAKtIAACfzFBUcVNO9uxyjKBPQQ"},
+                    {"name": "Episode 10", "file_id": "BQACAgQAAxkBAAICdmqoHpiZtZ2nspp0ZFn_RAVrTXGiAAKuIAACfzFBUZ0eUPwB7HXBPQQ"},
+                    {"name": "Episode 11", "file_id": "BQACAgQAAxkBAAICgWqoHp-z7VuuFsM1039HqZVcehMPAAKvIAACfzFBUXccHoU1hGOUPQQ"},
+                    {"name": "Episode 12", "file_id": "BQACAgQAAxkBAAICgmqoHp_hMGl0CS5MrIRZIDR-MOEEAAKwIAACfzFBUXXiJPJRYyN9PQQ"},
+                    {"name": "Episode 13", "file_id": "BQACAgQAAxkBAAICg2qoHp_j_mCiGNHWWr-J9qkR2MSnAAKxIAACfzFBUYKTEczLzggVPQQ"}
+                ]
+            }
+        ]
+    },
+
+    "heir": {
+        "title": "💎 Heir",
+        "series": [
+            {
+                "name": "From Ragas To The Hidden Heirs Bride",
+                "episodes": [
+                    {"name": "Episode 1", "file_id": "BQACAgQAAxkBAAICh2qoKHm1Nukz1ymQlzx5R8gyt_oUAALAIAACfzFBUTdQD7MrHaTfPQQ"},
+                    {"name": "Episode 2", "file_id": "BQACAgQAAxkBAAICiGqoKHmKnDqAkrqxBrQoFSyWEXJBAALBIAACfzFBUTAfPiP_4nc1PQQ"},
+                    {"name": "Episode 3", "file_id": "BQACAgQAAxkBAAICiWqoKHmOJ-IcdplL7vGeSivjvvdJAALCIAACfzFBUUb5-BT_JDqjPQQ"},
+                    {"name": "Episode 4", "file_id": "BQACAgQAAxkBAAICimqoKHldtOO97blZgt69MIdJdYztAALDIAACfzFBUdu-zvsx0_OGPQQ"},
+                    {"name": "Episode 5", "file_id": "BQACAgQAAxkBAAICi2qoKHm_ifPjGVF4YyiyjS6r_LifAALFIAACfzFBUamC-8-_p4rZPQQ"},
+                    {"name": "Episode 6", "file_id": "BQACAgQAAxkBAAICjGqoKHkYlji77SQhWC3CFyrpScv2AALGIAACfzFBUbqKvL2cQ8AUPQQ"},
+                    {"name": "Episode 7", "file_id": "BQACAgQAAxkBAAICjWqoKHl_U99inkhCeHHbPcCvWfmBAALHIAACfzFBUV5kcIXk0u6EPQQ"},
+                    {"name": "Episode 8", "file_id": "BQACAgQAAxkBAAICjmqoKHki76bUmit0m2Ag-xwvYT8XAALIIAACfzFBUbiGe5rpEY5JPQQ"},
+                    {"name": "Episode 9", "file_id": "BQACAgQAAxkBAAICl2qoKQ_rjJh-k9JiKaOCn1_ZeGL9AALKIAACfzFBUcomgHHqTMDSPQQ"}
+                ]
+            }
+        ]
+    },
+
 }
 
 CATEGORIES = [
@@ -256,9 +343,10 @@ CATEGORIES = [
     ("🐺 Werewolf", "werewolf"),
     ("🧛 Vampire", "vampire"),
     ("💔 Cheating", "cheating"),
-    ("🏃‍♂️ Chasing Love", "chasing_love"),
+    ("👑 Princess", "princess"),
+    ("👨‍👩‍👧 Family & Kids", "family_kids"),
     ("⚠️ Toxic Love", "toxic_love"),
-    ("💔 Getting Back 💔", "getting_back_💔"),
+    ("🥀 Regret", "regret"),
     ("🏡 House Wives", "house_wives"),
     ("💼 Female CEO", "female_ceo"),
     ("🎬 Action & Thriller", "action_thriller"),
@@ -270,8 +358,7 @@ CATEGORIES = [
     ("🏛️ Historical Epic", "historical_epic"),
     ("🎨 Anime", "anime"),
     ("🎭 Secret Identity", "secret_identity"),
-    ("👨‍👩‍👧 Family & Kids", "family_kids"),
-    ("📺 Reality TV", "reality_tv"),
+    ("💎 Heir", "heir"),
     ("🗺️ Adventure", "adventure"),
     ("🦸‍♂️ Superhero", "superhero"),
     ("🏥 Medical Drama", "medical_drama"),
@@ -284,10 +371,8 @@ CATEGORIES = [
 ]
 
 def build_catalog_keyboard():
-    # 1. Dynamically calculate total available series across all categories in the DATABASE
     total_series = sum(len(cat_data.get("series", [])) for cat_data in DATABASE.values())
     
-    # 2. Add the total series counter row at the very top (non-clickable status indicator)
     keyboard = [
         [InlineKeyboardButton(f"🔥 Total Available Series: {total_series}", callback_data="total_counter")]
     ]
@@ -320,7 +405,6 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         keyboard = []
         for s_idx, show in enumerate(category_data["series"]):
             ep_count = len(show["episodes"])
-            # Shorten long series names on the button interface for mobile view
             raw_name = show['name']
             short_name = raw_name if len(raw_name) <= 28 else raw_name[:25] + "..."
             btn_text = f"📺 {short_name} ({ep_count} Eps)"
@@ -364,7 +448,6 @@ async def button_click(update: Update, context: ContextTypes.DEFAULT_TYPE):
     data = query.data
 
     if data == "total_counter":
-        # Optional: You can answer with a small alert when users tap the top counter button
         await query.answer("🔥 This shows the total active series in our database!", show_alert=False)
         return
 
@@ -441,6 +524,7 @@ async def button_click(update: Update, context: ContextTypes.DEFAULT_TYPE):
         caption_text = (
             f"🎬 *{show_info['name']}* - *{ep_info['name']}*\n\n"
             f"▶️ Now Playing! Enjoy your show.\n\n"
+            f"⏳ *Come back later for more episodes and daily updates!*\n\n"
             f"📱 Watch more original short dramas & full episodes on our app:\n"
             f"🔗 {app_link}"
         )
@@ -467,6 +551,21 @@ async def post_to_channel(update: Update, context: ContextTypes.DEFAULT_TYPE):
     except Exception as e:
         await update.message.reply_text(f"Failed to post. Error: {e}")
 
+class HealthCheckHandler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.send_header("Content-type", "text/plain")
+        self.end_headers()
+        self.wfile.write(b"Bot is alive!")
+        
+    def log_message(self, format, *args):
+        pass
+
+def run_health_server():
+    port = int(os.environ.get("PORT", 10000))
+    server = HTTPServer(('0.0.0.0', port), HealthCheckHandler)
+    server.serve_forever()
+
 def main():
     token = "8974449532:AAGs7pmg_MdT__U9Tlz_-QceT5OGHt6Mm_4"
     app = ApplicationBuilder().token(token).build()
@@ -479,20 +578,6 @@ def main():
     print("Bot is up and listening...")
     app.run_polling(drop_pending_updates=True)
 
-import threading
-from http.server import HTTPServer, BaseHTTPRequestHandler
-
-class HealthCheckHandler(BaseHTTPRequestHandler):
-    def do_GET(self):
-        self.send_response(200)
-        self.end_headers()
-        self.wfile.write(b"Bot is active and running!")
-
-def run_health_server():
-    server = HTTPServer(('0.0.0.0', 10000), HealthCheckHandler)
-    server.serve_forever()
-
-threading.Thread(target=run_health_server, daemon=True).start()
-
 if __name__ == "__main__":
+    threading.Thread(target=run_health_server, daemon=True).start()
     main()
