@@ -31,6 +31,7 @@ DATABASE = {
             }
         ]
     },
+
     "flash_marriage": {
         "title": "⚡ Flash Marriage",
         "series": [
@@ -66,7 +67,8 @@ DATABASE = {
             }
         ]
     },
-    "campus": {
+
+    "campus_cinderella": {
         "title": "🏛️ Campus",
         "series": [
             {
@@ -86,12 +88,74 @@ DATABASE = {
             }
         ]
     },
+
+    "toxic_love": {
+        "title": "⚠️ Toxic Love",
+        "series": [
+            {
+                "name": "My Finace Cheated, So I chose His Billionaire Dad",
+                "episodes": [
+                    {"name": "Episode 1", "file_id": "BQACAgQAAxkBAAIBBGqnsIP3JYiWVKP9edi1BjtRGblrAAJAHwACfzFBUXOLv5z45H6LPQQ"},
+                    {"name": "Episode 2", "file_id": "BQACAgQAAxkBAAIBBWqnsINURsBM6B0wtN1zJgTCSY5QAAJBHwACfzFBUe8c9n-oTsQGPQQ"},
+                    {"name": "Episode 3", "file_id": "BQACAgQAAxkBAAIBBmqnsIM5xhJV8LGkZQq2nEoeE2jAAAJCHwACfzFBURrAlv9oCUXwPQQ"},
+                    {"name": "Episode 4", "file_id": "BQACAgQAAxkBAAIBB2qnsIP9iILJqw6j6xbDfWGMavADAAJDHwACfzFBUQ7vNfBbyODJPQQ"},
+                    {"name": "Episode 5", "file_id": "BQACAgQAAxkBAAIBCGqnsIPmQ3JkM1UUAb54UxStHHNRAAJEHwACfzFBUUzG8ml3QdUBPQQ"},
+                    {"name": "Episode 6", "file_id": "BQACAgQAAxkBAAIBCWqnsINDSYy_t4oBalnlMt4ejCgXAAJFHwACfzFBUbmPVSl2wTj-PQQ"},
+                    {"name": "Episode 7", "file_id": "BQACAgQAAxkBAAIBCmqnsINlCEIBkZzLEIwYIo3HkTOuAAJGHwACfzFBUUApMOWF2w83PQQ"},
+                    {"name": "Episode 8", "file_id": "BQACAgQAAxkBAAIBC2qnsINQh-QW70W72A8QS2Uf2hZpAAJHHwACfzFBUaG8JRv0RoCvPQQ"},
+                    {"name": "Episode 9", "file_id": "BQACAgQAAxkBAAIBDGqnsIOYSmGPW7PZTWd4kvpkVIw8AAJIHwACfzFBUQnNhW4pg-6OPQQ"}
+                ]
+            }
+        ]
+    },
+
+    "secret_identity": {
+        "title": "🎭 Secret Identity",
+        "series": [
+            {
+                "name": "The Hidden Dragon Rider Returns For Justice",
+                "episodes": [
+                    {"name": "Episode 1", "file_id": "BQACAgQAAxkBAAIBFmqnsrqxwoOQXgbL1raamRfOryelAAJKHwACfzFBUW5zVXeytoAkPQQ"},
+                    {"name": "Episode 2", "file_id": "BQACAgQAAxkBAAIBF2qnsroFAAEfdGauZ8RW7ApfOkBgeQACSx8AAn8xQVEXTYe6qlntUz0E"},
+                    {"name": "Episode 3", "file_id": "BQACAgQAAxkBAAIBGGqnsrqLcy8MhYLTwYU3JjsETFjbAAJMHwACfzFBURfE319nSZP2PQQ"},
+                    {"name": "Episode 4", "file_id": "BQACAgQAAxkBAAIBGWqnsroUQLPMo0mrw-hltasNinFpAAJNHwACfzFBURX2xcpUR9GtPQQ"},
+                    {"name": "Episode 5", "file_id": "BQACAgQAAxkBAAIBGmqnsrr1KLrl0pGod_sqy00PvCP8AAJOHwACfzFBUXIZ7Kv5av-MPQQ"},
+                    {"name": "Episode 6", "file_id": "BQACAgQAAxkBAAIBG2qnsrqYm0i4behf_m-Jeb5yek7oAAJPHwACfzFBURiGzuK0KrNyPQQ"},
+                    {"name": "Episode 7", "file_id": "BQACAgQAAxkBAAIBHGqnsroxTXyEgd1rwXsMjJnDdgdyAAJQHwACfzFBUcQ1iH19VURjPQQ"},
+                    {"name": "Episode 8", "file_id": "BQACAgQAAxkBAAIBHWqnsrraNcy0lh1y_odeubXYBC0TAAJRHwACfzFBURqgAAGlctsFiT0E"},
+                    {"name": "Episode 9", "file_id": "BQACAgQAAxkBAAIBHmqnsrrK0PVXTvcBa56xB99YLfXBAAJSHwACfzFBUX8RdiM--3igPQQ"},
+                    {"name": "Episode 10", "file_id": "BQACAgQAAxkBAAIBH2qnsrpFvpZtdmbqVIxX4MtCAtwVAAJTHwACfzFBUfm0myto23HVPQQ"}
+                ]
+            }
+        ]
+    },
+
+    "strong_female": {
+        "title": "⚡ Strong Female",
+        "series": [
+            {
+                "name": "Wait, You Called The Lady Boss A Side Piece?",
+                "episodes": [
+                    {"name": "Episode 1", "file_id": "BQACAgQAAxkBAAIBKmqntOOROuPBbpPmq6QJNpcwitD9AAJaHwACfzFBUZVqU98mHAbrPQQ"},
+                    {"name": "Episode 2", "file_id": "BQACAgQAAxkBAAIBK2qntOONlLJGZYMX3XZf9gn_E_oNAAJbHwACfzFBUU2DAAGlir0O7D0E"},
+                    {"name": "Episode 3", "file_id": "BQACAgQAAxkBAAIBLGqntOPlLZXItssNvwMkAfRk6tlXAAJcHwACfzFBUV2e0WjncbElPQQ"},
+                    {"name": "Episode 4", "file_id": "BQACAgQAAxkBAAIBLWqntONY0OInUTzC0kVUWGKOsQ2HAAJdHwACfzFBUefV8v0RP4gpPQQ"},
+                    {"name": "Episode 5", "file_id": "BQACAgQAAxkBAAIBLmqntON8MIUKl6QzSpFdm8ytQ6NTAAJeHwACfzFBUX4MEaGAYm3VPQQ"},
+                    {"name": "Episode 6", "file_id": "BQACAgQAAxkBAAIBL2qntOOp0CKH4FJTQ0ioUJEiY8PhAAJfHwACfzFBUXKtoMlEQ62LPQQ"},
+                    {"name": "Episode 7", "file_id": "BQACAgQAAxkBAAIBMGqntOO99wZlZrWFn4frQ3fptaXiAAJgHwACfzFBUWVD0vwHFVFHPQQ"},
+                    {"name": "Episode 8", "file_id": "BQACAgQAAxkBAAIBMWqntOOQssugy1kdYg_Sc9I_VPWhAAJhHwACfzFBUWKEFfNi54u-PQQ"},
+                    {"name": "Episode 9", "file_id": "BQACAgQAAxkBAAIBMmqntOM93a3EtmVJ19Dh1C63CTahAAJiHwACfzFBUW9NzHWntiXqPQQ"},
+                    {"name": "Episode 10", "file_id": "BQACAgQAAxkBAAIBM2qntON8Q4nUevJDCzkAAbo8t7nefgACYx8AAn8xQVFGOzZiEw_XfT0E"}
+                ]
+            }
+        ]
+    },
 }
 
 CATEGORIES = [
     ("🔥 Forbidden Love", "forbidden_love"),
     ("⚡ Flash Marriage", "flash_marriage"),
-    ("🏛️ Campus", "campus"),
+    ("🏛️ Campus", "campus_cinderella"),
     ("⚡ Strong Female", "strong_female"),
     ("💍 Contr. Marriage", "contract_marriage"),
     ("❤️ After Marriage", "love_after_marriage"),
@@ -108,7 +172,7 @@ CATEGORIES = [
     ("😱 Horror", "horror"),
     ("🏛️ Historical Epic", "historical_epic"),
     ("🎨 Anime", "anime"),
-    ("📹 Documentary", "documentary"),
+    ("🎭 Secret Identity", "secret_identity"),
     ("👨‍👩‍👧 Family & Kids", "family_kids"),
     ("📺 Reality TV", "reality_tv"),
     ("🗺️ Adventure", "adventure"),
@@ -128,7 +192,9 @@ def build_catalog_keyboard():
     for title, cat_key in CATEGORIES:
         cat_data = DATABASE.get(cat_key)
         series_count = len(cat_data["series"]) if cat_data and "series" in cat_data else 0
+        
         display_title = f"{title} [{series_count}]"
+        
         url = f"https://t.me/{BOT_USERNAME}?start={cat_key}"
         row.append(InlineKeyboardButton(display_title, url=url))
         if len(row) == 2:
@@ -150,7 +216,10 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         keyboard = []
         for s_idx, show in enumerate(category_data["series"]):
             ep_count = len(show["episodes"])
-            btn_text = f"📺 {show['name']} ({ep_count} Episodes)"
+            # Shorten long series names on the button interface for mobile view
+            raw_name = show['name']
+            short_name = raw_name if len(raw_name) <= 28 else raw_name[:25] + "..."
+            btn_text = f"📺 {short_name} ({ep_count} Eps)"
             keyboard.append([InlineKeyboardButton(btn_text, callback_data=f"series_{cat_key}_{s_idx}")])
         
         keyboard.append([InlineKeyboardButton("🏠 Main Categories", callback_data="main_menu")])
@@ -213,8 +282,12 @@ async def button_click(update: Update, context: ContextTypes.DEFAULT_TYPE):
         keyboard.append([InlineKeyboardButton("⬅️ Back to Series", callback_data=f"backcat_{cat_key}")])
         
         reply_markup = InlineKeyboardMarkup(keyboard)
+        raw_name = show_info['name']
+        short_name = raw_name if len(raw_name) <= 35 else raw_name[:32] + "..."
+        ep_count = len(show_info["episodes"])
+        
         await query.message.edit_text(
-            f"📺 *{show_info['name']}*\n\nChoose an episode to watch:",
+            f"📺 *{short_name}* \n({ep_count} Episodes available)\n\nChoose an episode to watch:",
             reply_markup=reply_markup,
             parse_mode="Markdown"
         )
@@ -227,7 +300,9 @@ async def button_click(update: Update, context: ContextTypes.DEFAULT_TYPE):
         keyboard = []
         for s_idx, show in enumerate(category_data["series"]):
             ep_count = len(show["episodes"])
-            btn_text = f"📺 {show['name']} ({ep_count} Episodes)"
+            raw_name = show['name']
+            short_name = raw_name if len(raw_name) <= 28 else raw_name[:25] + "..."
+            btn_text = f"📺 {short_name} ({ep_count} Eps)"
             keyboard.append([InlineKeyboardButton(btn_text, callback_data=f"series_{cat_key}_{s_idx}")])
         
         keyboard.append([InlineKeyboardButton("🏠 Main Categories", callback_data="main_menu")])
@@ -248,14 +323,24 @@ async def button_click(update: Update, context: ContextTypes.DEFAULT_TYPE):
         s_idx = int(s_idx_str)
         e_idx = int(e_idx_str)
         
-        ep_info = DATABASE[cat_key]["series"][s_idx]["episodes"][e_idx]
+        show_info = DATABASE[cat_key]["series"][s_idx]
+        ep_info = show_info["episodes"][e_idx]
         file_id = ep_info["file_id"]
+        
+        app_link = "https://bit.ly/4xlLGEC"
+        
+        caption_text = (
+            f"🎬 *{show_info['name']}* - *{ep_info['name']}*\n\n"
+            f"▶️ Now Playing! Enjoy your show.\n\n"
+            f"📱 Watch more original short dramas & full episodes on our app:\n"
+            f"🔗 {app_link}"
+        )
         
         try:
             await context.bot.send_video(
                 chat_id=query.from_user.id,
                 video=file_id,
-                caption=f"▶️ Now Playing: *{ep_info['name']}*\nEnjoy your show!",
+                caption=caption_text,
                 parse_mode="Markdown"
             )
         except Exception as e:
