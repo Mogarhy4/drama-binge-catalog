@@ -567,7 +567,7 @@ def run_health_server():
     server.serve_forever()
 
 def main():
-    token = "8974449532:AAGs7pmg_MdT__U9Tlz_-QceT5OGHt6Mm_4"
+    token = "8974449532:AAFCZcCzAoVbegRGZdOF_zk1nu6baUnko_M"
     app = ApplicationBuilder().token(token).build()
     
     app.add_handler(CommandHandler("start", start))
