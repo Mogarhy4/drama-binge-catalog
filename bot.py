@@ -1,6 +1,7 @@
 import os
 import threading
 import logging
+import re
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import ApplicationBuilder, CallbackQueryHandler, CommandHandler, MessageHandler, ContextTypes, filters
@@ -12,6 +13,16 @@ BOT_USERNAME = "DramaBingeCatalog_bot"
 
 # Logging setup
 logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO)
+
+# Helper to extract true episode count from batch names like "Episode 16-20"
+def get_true_episode_count(show):
+    if not show.get("episodes"):
+        return 0
+    last_name = show["episodes"][-1]["name"]
+    numbers = re.findall(r'\d+', last_name)
+    if numbers:
+        return int(numbers[-1])
+    return len(show["episodes"])
 
 # 1. Lightweight health check server for Render & UptimeRobot
 class HealthCheckHandler(BaseHTTPRequestHandler):
@@ -25,17 +36,16 @@ class HealthCheckHandler(BaseHTTPRequestHandler):
         self.end_headers()
 
     def log_message(self, format, *args):
-        pass  # Keeps logs clean
+        pass
 
 def run_health_server():
     port = int(os.environ.get("PORT", 10000))
     server = HTTPServer(("0.0.0.0", port), HealthCheckHandler)
     server.serve_forever()
 
-# 2. Start the health-check server in the background thread
 threading.Thread(target=run_health_server, daemon=True).start()
 
-# 3-Tier Database: Category -> Series (with multiple episodes)
+# 3-Tier Database
 DATABASE = {
     "forbidden_love": {
         "title": "🔥 Forbidden Love",
@@ -138,7 +148,7 @@ DATABASE = {
                     {"name": "Episode 6", "file_id": "BQACAgQAAxkBAAIBCWqnsINDSYy_t4oBalnlMt4ejCgXAAJFHwACfzFBUbmPVSl2wTj-PQQ"},
                     {"name": "Episode 7", "file_id": "BQACAgQAAxkBAAIBCmqnsINlCEIBkZzLEIwYIo3HkTOuAAJGHwACfzFBUUApMOWF2w83PQQ"},
                     {"name": "Episode 8", "file_id": "BQACAgQAAxkBAAIBC2qnsINQh-QW70W72A8QS2Uf2hZpAAJHHwACfzFBUaG8JRv0RoCvPQQ"},
-                    {"name": "Episode 9", "file_id": "BQACAgQAAxkBAAIBDGqnsIOYSmGPW7PZTWd4kvpkVIw8AAJIHwACfzFBUQnNhW4pg-6OPQQ"}
+                    {"name": "Episode 9", "file_id": "BAACAgQAAxkBAAIBDGqnsIOYSmGPW7PZTWd4kvpkVIw8AAJIHwACfzFBUQnNhW4pg-6OPQQ"}
                 ]
             }
         ]
@@ -435,7 +445,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         keyboard = []
         for s_idx, show in enumerate(category_data["series"]):
-            ep_count = len(show["episodes"])
+            ep_count = get_true_episode_count(show)
             raw_name = show['name']
             short_name = raw_name if len(raw_name) <= 28 else raw_name[:25] + "..."
             btn_text = f"📺 {short_name} ({ep_count} Eps)"
@@ -507,7 +517,7 @@ async def button_click(update: Update, context: ContextTypes.DEFAULT_TYPE):
         reply_markup = InlineKeyboardMarkup(keyboard)
         raw_name = show_info['name']
         short_name = raw_name if len(raw_name) <= 35 else raw_name[:32] + "..."
-        ep_count = len(show_info["episodes"])
+        ep_count = get_true_episode_count(show_info)
         
         await query.message.edit_text(
             f"📺 *{short_name}* \n({ep_count} Episodes available)\n\nChoose an episode to watch:",
@@ -524,7 +534,7 @@ async def button_click(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         keyboard = []
         for s_idx, show in enumerate(category_data["series"]):
-            ep_count = len(show["episodes"])
+            ep_count = get_true_episode_count(show)
             raw_name = show['name']
             short_name = raw_name if len(raw_name) <= 28 else raw_name[:25] + "..."
             btn_text = f"📺 {short_name} ({ep_count} Eps)"
@@ -542,7 +552,6 @@ async def button_click(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     if data.startswith("ep_"):
         parts = data.split("_")
-        # Safely parse indices from the end and category key from the middle
         e_idx = int(parts[-1])
         s_idx = int(parts[-2])
         cat_key = "_".join(parts[1:-2])
@@ -552,7 +561,6 @@ async def button_click(update: Update, context: ContextTypes.DEFAULT_TYPE):
         ep_name = episode["name"]
         show_name = DATABASE[cat_key]["series"][s_idx]["name"]
 
-        # Send the video to the user
         await context.bot.send_video(
             chat_id=query.message.chat_id,
             video=file_id,
@@ -562,9 +570,7 @@ async def button_click(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return
 
 def main():
-    # Replace with your actual Telegram Bot Token from BotFather
     TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "YOUR_BOT_TOKEN_HERE")
-    
     app = ApplicationBuilder().token(TOKEN).build()
 
     app.add_handler(CommandHandler("start", start))
