@@ -515,18 +515,22 @@ async def button_click(update: Update, context: ContextTypes.DEFAULT_TYPE):
         
         show_info = DATABASE[cat_key]["series"][s_idx]
         
-        # --- UPDATED: Dynamic Episode Numbering ---
+        # Grid layout: 2 episode buttons per row
         keyboard = []
         total_eps = show_info["total_eps"]
+        row = []
         for e_idx, ep in enumerate(show_info["episodes"][:total_eps]):
             episode_number = e_idx + 1
-            keyboard.append([
-                InlineKeyboardButton(
-                    f"▶️ Episode {episode_number}", 
-                    callback_data=f"ep_{cat_key}_{s_idx}_{e_idx}"
-                )
-            ])
-        # ------------------------------------------
+            btn = InlineKeyboardButton(
+                f"▶️ Ep {episode_number}", 
+                callback_data=f"ep_{cat_key}_{s_idx}_{e_idx}"
+            )
+            row.append(btn)
+            if len(row) == 2:
+                keyboard.append(row)
+                row = []
+        if row:
+            keyboard.append(row)
         
         keyboard.append([InlineKeyboardButton("⬅️ Back to Series", callback_data=f"backcat_{cat_key}")])
         
@@ -569,11 +573,10 @@ async def button_click(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     if data.startswith("ep_"):
         parts = data.split("_")
-        cat_key = parts[1]
-        s_idx = int(parts[2])
-        e_idx = int(parts[3])
+        e_idx = int(parts[-1])
+        s_idx = int(parts[-2])
+        cat_key = "_".join(parts[1:-2]) 
         
-        # --- UPDATED: Dynamic Episode Video Sending ---
         show_info = DATABASE[cat_key]["series"][s_idx]
         ep = show_info["episodes"][e_idx]
         file_id = ep["file_id"]
@@ -581,7 +584,6 @@ async def button_click(update: Update, context: ContextTypes.DEFAULT_TYPE):
         show_name = show_info["name"]
         
         caption = f"📺 *{show_name}* - *Episode {episode_number}*\n\n👉 Join our channel: {CHANNEL_USERNAME}"
-        # ----------------------------------------------
         
         await context.bot.send_video(
             chat_id=query.message.chat_id,
