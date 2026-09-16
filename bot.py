@@ -1,7 +1,6 @@
 import os
 import threading
 import logging
-import re
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import ApplicationBuilder, CallbackQueryHandler, CommandHandler, MessageHandler, ContextTypes, filters
@@ -13,16 +12,6 @@ BOT_USERNAME = "DramaBingeCatalog_bot"
 
 # Logging setup
 logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO)
-
-# Helper to extract true episode count from batch names like "Episode 16-20"
-def get_true_episode_count(show):
-    if not show.get("episodes"):
-        return 0
-    last_name = show["episodes"][-1]["name"]
-    numbers = re.findall(r'\d+', last_name)
-    if numbers:
-        return int(numbers[-1])
-    return len(show["episodes"])
 
 # 1. Lightweight health check server for Render & UptimeRobot
 class HealthCheckHandler(BaseHTTPRequestHandler):
@@ -36,22 +25,24 @@ class HealthCheckHandler(BaseHTTPRequestHandler):
         self.end_headers()
 
     def log_message(self, format, *args):
-        pass
+        pass  # Keeps logs clean
 
 def run_health_server():
     port = int(os.environ.get("PORT", 10000))
     server = HTTPServer(("0.0.0.0", port), HealthCheckHandler)
     server.serve_forever()
 
+# 2. Start the health-check server in the background thread
 threading.Thread(target=run_health_server, daemon=True).start()
 
-# 3-Tier Database
+# 3-Tier Database: Category -> Series (with multiple episodes & custom total_eps)
 DATABASE = {
     "forbidden_love": {
         "title": "🔥 Forbidden Love",
         "series": [
             {
                 "name": "Hero Husband's Apocalypse Harem",
+                "total_eps": 17,
                 "episodes": [
                     {"name": "Episode 1", "file_id": "BAACAgQAAxkBAAMiaqXIO0oDWKj3xS1ZofseV37F25UAAkgeAAJx7ihRE4jy3T8Z6909BA"},
                     {"name": "Episode 2", "file_id": "BAACAgQAAxkBAAMsaqXKNAr6csp1C43OI64fy30NP5gAAkoeAAJx7ihREz6FBDXCYaU9BA"},
@@ -80,6 +71,7 @@ DATABASE = {
         "series": [
             {
                 "name": "Top Gear Guy Finds His Mr's Right",
+                "total_eps": 10,
                 "episodes": [
                     {"name": "Episode 1", "file_id": "BAACAgQAAxkBAANNaqbxn4cH_2EckwABc2yeGBv-nXKGAAJ9IwACfzE5UWYPInSD9_tfPQQ"},
                     {"name": "Episode 2", "file_id": "BAACAgQAAxkBAANPaqbxuUi7dg0g3zbUKrJS7YgYfCoAAn4jAAJ_MTlRPUw0R1YCoyU9BA"},
@@ -95,6 +87,7 @@ DATABASE = {
             },
             {
                 "name": "The Substitute Brid For The First Vampire",
+                "total_eps": 10,
                 "episodes": [
                     {"name": "Episode 1", "file_id": "BAACAgQAAxkBAAN1aqb4grTBsMswbWGdLiEsKYy8kr0AAqwjAAJ_MTlR7FDVDcMaIB49BA"},
                     {"name": "Episode 2", "file_id": "BAACAgQAAxkBAAN2aqb4gpofp3wChBruRJ_gmvLUSikAAq0jAAJ_MTlRM17o3JN9NOA9BA"},
@@ -116,6 +109,7 @@ DATABASE = {
         "series": [
             {
                 "name": "My Finace's Brother Owns Me Every Night",
+                "total_eps": 20,
                 "episodes": [
                     {"name": "Episode 1", "file_id": "BAACAgQAAxkBAANiaqb3ef_lYT7JahE06to0w8CXhs8AAqEjAAJ_MTlRdj2KkHqxic89BA"},
                     {"name": "Episode 2", "file_id": "BAACAgQAAxkBAANhaqb3efrL7tY5NfwC8SxTKAIVL1UAAqAjAAJ_MTlRt9WoOZbCteM9BA"},
@@ -139,6 +133,7 @@ DATABASE = {
         "series": [
             {
                 "name": "My Finace Cheated, So I chose His Billionaire Dad",
+                "total_eps": 9,
                 "episodes": [
                     {"name": "Episode 1", "file_id": "BQACAgQAAxkBAAIBBGqnsIP3JYiWVKP9edi1BjtRGblrAAJAHwACfzFBUXOLv5z45H6LPQQ"},
                     {"name": "Episode 2", "file_id": "BQACAgQAAxkBAAIBBWqnsINURsBM6B0wtN1zJgTCSY5QAAJBHwACfzFBUe8c9n-oTsQGPQQ"},
@@ -148,7 +143,7 @@ DATABASE = {
                     {"name": "Episode 6", "file_id": "BQACAgQAAxkBAAIBCWqnsINDSYy_t4oBalnlMt4ejCgXAAJFHwACfzFBUbmPVSl2wTj-PQQ"},
                     {"name": "Episode 7", "file_id": "BQACAgQAAxkBAAIBCmqnsINlCEIBkZzLEIwYIo3HkTOuAAJGHwACfzFBUUApMOWF2w83PQQ"},
                     {"name": "Episode 8", "file_id": "BQACAgQAAxkBAAIBC2qnsINQh-QW70W72A8QS2Uf2hZpAAJHHwACfzFBUaG8JRv0RoCvPQQ"},
-                    {"name": "Episode 9", "file_id": "BAACAgQAAxkBAAIBDGqnsIOYSmGPW7PZTWd4kvpkVIw8AAJIHwACfzFBUQnNhW4pg-6OPQQ"}
+                    {"name": "Episode 9", "file_id": "BQACAgQAAxkBAAIBDGqnsIOYSmGPW7PZTWd4kvpkVIw8AAJIHwACfzFBUQnNhW4pg-6OPQQ"}
                 ]
             }
         ]
@@ -159,10 +154,11 @@ DATABASE = {
         "series": [
             {
                 "name": "The Hidden Dragon Rider Returns For Justice",
+                "total_eps": 10,
                 "episodes": [
                     {"name": "Episode 1", "file_id": "BQACAgQAAxkBAAIBFmqnsrqxwoOQXgbL1raamRfOryelAAJKHwACfzFBUW5zVXeytoAkPQQ"},
                     {"name": "Episode 2", "file_id": "BQACAgQAAxkBAAIBF2qnsroFAAEfdGauZ8RW7ApfOkBgeQACSx8AAn8xQVEXTYe6qlntUz0E"},
-                    {"name": "Episode 3", "file_id": "BAACAgQAAxkBAAIBGGqnsrqLcy8MhYLTwYU3JjsETFjbAAJMHwACfzFBURfE319nSZP2PQQ"},
+                    {"name": "Episode 3", "file_id": "BQACAgQAAxkBAAIBGGqnsrqLcy8MhYLTwYU3JjsETFjbAAJMHwACfzFBURfE319nSZP2PQQ"},
                     {"name": "Episode 4", "file_id": "BQACAgQAAxkBAAIBGWqnsroUQLPMo0mrw-hltasNinFpAAJNHwACfzFBURX2xcpUR9GtPQQ"},
                     {"name": "Episode 5", "file_id": "BQACAgQAAxkBAAIBGmqnsrr1KLrl0pGod_sqy00PvCP8AAJOHwACfzFBUXIZ7Kv5av-MPQQ"},
                     {"name": "Episode 6", "file_id": "BQACAgQAAxkBAAIBG2qnsrqYm0i4behf_m-Jeb5yek7oAAJPHwACfzFBURiGzuK0KrNyPQQ"},
@@ -180,6 +176,7 @@ DATABASE = {
         "series": [
             {
                 "name": "Wait, You Called The Lady Boss A Side Piece?",
+                "total_eps": 10,
                 "episodes": [
                     {"name": "Episode 1", "file_id": "BQACAgQAAxkBAAIBKmqntOOROuPBbpPmq6QJNpcwitD9AAJaHwACfzFBUZVqU98mHAbrPQQ"},
                     {"name": "Episode 2", "file_id": "BQACAgQAAxkBAAIBK2qntOONlLJGZYMX3XZf9gn_E_oNAAJbHwACfzFBUU2DAAGlir0O7D0E"},
@@ -195,6 +192,7 @@ DATABASE = {
             },
             {
                 "name": "Owned By My Husband's Sister",
+                "total_eps": 7,
                 "episodes": [
                     {"name": "Episode 1", "file_id": "BQACAgQAAxkBAAIBqGqn1AWkzZ3eGcCQs-mwCtUUmzaZAALJHwACfzFBUSDTTOmgL75mPQQ"},
                     {"name": "Episode 2", "file_id": "BQACAgQAAxkBAAIBqWqn1AX71Q0XSZDm79qlS1lC-CIAA8ofAAJ_MUFRjcxTwrTM-TM9BA"},
@@ -213,6 +211,7 @@ DATABASE = {
         "series": [
             {
                 "name": "Too Late To Love His Substitute Slave",
+                "total_eps": 8,
                 "episodes": [
                     {"name": "Episode 1", "file_id": "BQACAgQAAxkBAAIBcmqn0GwBlkQEYxXRYbvGwVZNcCW2AAKgHwACfzFBUeWK3G0ILicZPQQ"},
                     {"name": "Episode 2", "file_id": "BQACAgQAAxkBAAIBc2qn0GydCF3fiPO3xQqmXCGvXnAUAAKhHwACfzFBUW7jvB73e9CyPQQ"},
@@ -226,13 +225,14 @@ DATABASE = {
             },
             {
                 "name": "The Mermaid Queen Rises From Betrayal",
+                "total_eps": 6,
                 "episodes": [
                     {"name": "Episode 1", "file_id": "BAACAgQAAxkBAAIBhGqn0ZsyNPJryCMCwAnZkA06LSvPAAKyHwACfzFBUbp2V6bJ4MV7PQQ"},
                     {"name": "Episode 2", "file_id": "BAACAgQAAxkBAAIBhmqn0alTdIK9pFfd46dkwHnXliFaAAKzHwACfzFBUVdmaza5Wg2ePQQ"},
                     {"name": "Episode 3", "file_id": "BAACAgQAAxkBAAIBhmqn0alTdIK9pFfd46dkwHnXliFaAAKzHwACfzFBUVdmaza5Wg2ePQQ"},
                     {"name": "Episode 4", "file_id": "BQACAgQAAxkBAAIBimqn0b1t6PdfjVmXjusmd0CECpq5AAK2HwACfzFBUe1J02P5rcxrPQQ"},
-                    {"name": "Episode 5", "file_id": "BQACAgQAAxkBAAIBjGqn0cg4hYEhUbcF8cVOF9eUEeCeAAK3HwACfzFBUbdGt4idyrRUPQQ"},
-                    {"name": "Episode 6", "file_id": "BQACAgQAAxkBAAIBjmqn0dCMIiRY-HTQgQ6SuiWo2PNOAAK5HwACfzFBUWwOuYAhWH4dPQQ"}
+                    {"name": "Episode 5", "file_id": "BAACAgQAAxkBAAIBjGqn0cg4hYEhUbcF8cVOF9eUEeCeAAK3HwACfzFBUbdGt4idyrRUPQQ"},
+                    {"name": "Episode 6", "file_id": "BAACAgQAAxkBAAIBjmqn0dCMIiRY-HTQgQ6SuiWo2PNOAAK5HwACfzFBUWwOuYAhWH4dPQQ"}
                 ]
             }
         ]
@@ -243,6 +243,7 @@ DATABASE = {
         "series": [
             {
                 "name": "The Captian Secret Wife Was The Real Ace",
+                "total_eps": 11,
                 "episodes": [
                     {"name": "Episode 1", "file_id": "BQACAgQAAxkBAAIBkGqn0tl_bAF3ry6bhyIWoVV5Cq4UAAK8HwACfzFBUYC6bAABVP4ecD0E"},
                     {"name": "Episode 2", "file_id": "BQACAgQAAxkBAAIBkWqn0tnPPXfXTKK9Vn33NPc0eg6oAAK9HwACfzFBUf43JNXgIzABPQQ"},
@@ -265,6 +266,7 @@ DATABASE = {
         "series": [
             {
                 "name": "The Hidden Dragon Rider Returns For Justice",
+                "total_eps": 10,
                 "episodes": [
                     {"name": "Episode 1", "file_id": "BQACAgQAAxkBAAIByGqn1WHU9532EAGmzrYOGXCkR77VAALaHwACfzFBUdLx72_w5kXFPQQ"},
                     {"name": "Episode 2", "file_id": "BQACAgQAAxkBAAIBtmqn1QQB58lDIY6xqd7zrbu_4X7MAALRHwACfzFBUUnh6ZZG1srAPQQ"},
@@ -280,6 +282,7 @@ DATABASE = {
             },
             {
                 "name": "Fall In Love With Claws And Fangs",
+                "total_eps": 5,
                 "episodes": [
                     {"name": "Episode 1", "file_id": "BQACAgQAAxkBAAIBymqn1jPHIQ5ZM-scdD8X3uYvcGc0AALbHwACfzFBUXxOaQg1Kva9PQQ"},
                     {"name": "Episode 2", "file_id": "BQACAgQAAxkBAAIBy2qn1jMgF6v2e_G_08v56zYmVL3PAALcHwACfzFBUSDw6pfyBkD_PQQ"},
@@ -296,6 +299,7 @@ DATABASE = {
         "series": [
             {
                 "name": "I Walked Away You Wasted Away",
+                "total_eps": 11,
                 "episodes": [
                     {"name": "Episode 1", "file_id": "BQACAgQAAxkBAAICSWqoG4ThJsRrF_4zj-uYnV2-Wyg6AAKKIAACfzFBUXekrGfYzySCPQQ"},
                     {"name": "Episode 2", "file_id": "BQACAgQAAxkBAAICSmqoG4TLkykipcCiLoMJeVgAAXmFRgACiyAAAn8xQVGjxFgej-m8Wj0E"},
@@ -318,6 +322,7 @@ DATABASE = {
         "series": [
             {
                 "name": "I Dumped Zeus:Th God King",
+                "total_eps": 7,
                 "episodes": [
                     {"name": "Episode 1", "file_id": "BQACAgQAAxkBAAICX2qoHQ2EvTzN1ailR21mdwMWSwauAAKYIAACfzFBUYtsvWBvpY41PQQ"},
                     {"name": "Episode 2", "file_id": "BQACAgQAAxkBAAICX2qoHQ2EvTzN1ailR21mdwMWSwauAAKYIAACfzFBUYtsvWBvpY41PQQ"},
@@ -336,6 +341,7 @@ DATABASE = {
         "series": [
             {
                 "name": "His Baby Girl Is A MAgical Beasts, Whisperer",
+                "total_eps": 13,
                 "episodes": [
                     {"name": "Episode 1", "file_id": "BQACAgQAAxkBAAICbWqoHpg8tnBpECY9wf-7DcpLPZOKAAKkIAACfzFBUdSxqwvGtrCiPQQ"},
                     {"name": "Episode 2", "file_id": "BQACAgQAAxkBAAICbmqoHphAoD_MbuHMKA6-dkG4w9_qAAKlIAACfzFBUY2Jg--Qp7wGPQQ"},
@@ -360,6 +366,7 @@ DATABASE = {
         "series": [
             {
                 "name": "From Ragas To The Hidden Heirs Bride",
+                "total_eps": 9,
                 "episodes": [
                     {"name": "Episode 1", "file_id": "BQACAgQAAxkBAAICh2qoKHm1Nukz1ymQlzx5R8gyt_oUAALAIAACfzFBUTdQD7MrHaTfPQQ"},
                     {"name": "Episode 2", "file_id": "BQACAgQAAxkBAAICiGqoKHmKnDqAkrqxBrQoFSyWEXJBAALBIAACfzFBUTAfPiP_4nc1PQQ"},
@@ -445,7 +452,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         keyboard = []
         for s_idx, show in enumerate(category_data["series"]):
-            ep_count = get_true_episode_count(show)
+            ep_count = show["total_eps"]
             raw_name = show['name']
             short_name = raw_name if len(raw_name) <= 28 else raw_name[:25] + "..."
             btn_text = f"📺 {short_name} ({ep_count} Eps)"
@@ -517,7 +524,7 @@ async def button_click(update: Update, context: ContextTypes.DEFAULT_TYPE):
         reply_markup = InlineKeyboardMarkup(keyboard)
         raw_name = show_info['name']
         short_name = raw_name if len(raw_name) <= 35 else raw_name[:32] + "..."
-        ep_count = get_true_episode_count(show_info)
+        ep_count = show_info["total_eps"]
         
         await query.message.edit_text(
             f"📺 *{short_name}* \n({ep_count} Episodes available)\n\nChoose an episode to watch:",
@@ -529,12 +536,13 @@ async def button_click(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if data.startswith("backcat_"):
         cat_key = data.split("_", 1)[1]
         category_data = DATABASE.get(cat_key)
-        if not category_data:
+        
+        if not category_data or not category_data["series"]:
             return
 
         keyboard = []
         for s_idx, show in enumerate(category_data["series"]):
-            ep_count = get_true_episode_count(show)
+            ep_count = show["total_eps"]
             raw_name = show['name']
             short_name = raw_name if len(raw_name) <= 28 else raw_name[:25] + "..."
             btn_text = f"📺 {short_name} ({ep_count} Eps)"
@@ -552,25 +560,31 @@ async def button_click(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     if data.startswith("ep_"):
         parts = data.split("_")
-        e_idx = int(parts[-1])
-        s_idx = int(parts[-2])
-        cat_key = "_".join(parts[1:-2])
-
-        episode = DATABASE[cat_key]["series"][s_idx]["episodes"][e_idx]
-        file_id = episode["file_id"]
-        ep_name = episode["name"]
+        cat_key = parts[1]
+        s_idx = int(parts[2])
+        e_idx = int(parts[3])
+        
+        ep = DATABASE[cat_key]["series"][s_idx]["episodes"][e_idx]
+        file_id = ep["file_id"]
+        ep_name = ep["name"]
         show_name = DATABASE[cat_key]["series"][s_idx]["name"]
-
+        
+        caption = f"📺 *{show_name}* - *{ep_name}*\n\n👉 Join our channel: {CHANNEL_USERNAME}"
+        
         await context.bot.send_video(
             chat_id=query.message.chat_id,
             video=file_id,
-            caption=f"🎬 *{show_name}* - {ep_name}\n\nJoin our channel: {CHANNEL_USERNAME}",
+            caption=caption,
             parse_mode="Markdown"
         )
         return
 
-def main():
-    TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "YOUR_BOT_TOKEN_HERE")
+# Main application setup
+if __name__ == "__main__":
+    TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN")
+    if not TOKEN:
+        raise ValueError("No TELEGRAM_BOT_TOKEN found in environment variables!")
+
     app = ApplicationBuilder().token(TOKEN).build()
 
     app.add_handler(CommandHandler("start", start))
@@ -579,6 +593,3 @@ def main():
 
     print("Bot is up and running...")
     app.run_polling()
-
-if __name__ == "__main__":
-    main()
