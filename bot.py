@@ -452,7 +452,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         keyboard = []
         for s_idx, show in enumerate(category_data["series"]):
-            ep_count = show["total_eps"]
+            ep_count = show.get("total_eps", len(show.get("episodes", [])))
             raw_name = show['name']
             short_name = raw_name if len(raw_name) <= 28 else raw_name[:25] + "..."
             btn_text = f"📺 {short_name} ({ep_count} Eps)"
@@ -515,29 +515,22 @@ async def button_click(update: Update, context: ContextTypes.DEFAULT_TYPE):
         
         show_info = DATABASE[cat_key]["series"][s_idx]
         
-        # Grid layout: 2 episode buttons per row
         keyboard = []
-        total_eps = show_info["total_eps"]
-        row = []
-        for e_idx, ep in enumerate(show_info["episodes"][:total_eps]):
-            episode_number = e_idx + 1
+        episodes = show_info.get("episodes", [])
+        for e_idx, ep in enumerate(episodes):
+            ep_title = ep.get("name", f"Episode {e_idx + 1}")
             btn = InlineKeyboardButton(
-                f"▶️ Ep {episode_number}", 
+                f"▶️ {ep_title}", 
                 callback_data=f"ep_{cat_key}_{s_idx}_{e_idx}"
             )
-            row.append(btn)
-            if len(row) == 2:
-                keyboard.append(row)
-                row = []
-        if row:
-            keyboard.append(row)
+            keyboard.append([btn])
         
         keyboard.append([InlineKeyboardButton("⬅️ Back to Series", callback_data=f"backcat_{cat_key}")])
         
         reply_markup = InlineKeyboardMarkup(keyboard)
         raw_name = show_info['name']
         short_name = raw_name if len(raw_name) <= 35 else raw_name[:32] + "..."
-        ep_count = show_info["total_eps"]
+        ep_count = show_info.get("total_eps", len(episodes))
         
         await query.message.edit_text(
             f"📺 *{short_name}* \n({ep_count} Episodes available)\n\nChoose an episode to watch:",
@@ -555,7 +548,7 @@ async def button_click(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
         keyboard = []
         for s_idx, show in enumerate(category_data["series"]):
-            ep_count = show["total_eps"]
+            ep_count = show.get("total_eps", len(show.get("episodes", [])))
             raw_name = show['name']
             short_name = raw_name if len(raw_name) <= 28 else raw_name[:25] + "..."
             btn_text = f"📺 {short_name} ({ep_count} Eps)"
@@ -580,10 +573,10 @@ async def button_click(update: Update, context: ContextTypes.DEFAULT_TYPE):
         show_info = DATABASE[cat_key]["series"][s_idx]
         ep = show_info["episodes"][e_idx]
         file_id = ep["file_id"]
-        episode_number = e_idx + 1
+        ep_name = ep.get("name", f"Episode {e_idx + 1}")
         show_name = show_info["name"]
         
-        caption = f"📺 *{show_name}* - *Episode {episode_number}*\n\n👉 Join our channel: {CHANNEL_USERNAME}"
+        caption = f"📺 *{show_name}* - *{ep_name}*\n\n👉 Join our channel: {CHANNEL_USERNAME}"
         
         await context.bot.send_video(
             chat_id=query.message.chat_id,
