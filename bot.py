@@ -152,7 +152,7 @@ DATABASE = {
                 "episodes": [
                     {"name": "Episode 1", "file_id": "BQACAgQAAxkBAAIBFmqnsrqxwoOQXgbL1raamRfOryelAAJKHwACfzFBUW5zVXeytoAkPQQ"},
                     {"name": "Episode 2", "file_id": "BQACAgQAAxkBAAIBF2qnsroFAAEfdGauZ8RW7ApfOkBgeQACSx8AAn8xQVEXTYe6qlntUz0E"},
-                    {"name": "Episode 3", "file_id": "BQACAgQAAxkBAAIBGGqnsrqLcy8MhYLTwYU3JjsETFjbAAJMHwACfzFBURfE319nSZP2PQQ"},
+                    {"name": "Episode 3", "file_id": "BAACAgQAAxkBAAIBGGqnsrqLcy8MhYLTwYU3JjsETFjbAAJMHwACfzFBURfE319nSZP2PQQ"},
                     {"name": "Episode 4", "file_id": "BQACAgQAAxkBAAIBGWqnsroUQLPMo0mrw-hltasNinFpAAJNHwACfzFBURX2xcpUR9GtPQQ"},
                     {"name": "Episode 5", "file_id": "BQACAgQAAxkBAAIBGmqnsrr1KLrl0pGod_sqy00PvCP8AAJOHwACfzFBUXIZ7Kv5av-MPQQ"},
                     {"name": "Episode 6", "file_id": "BQACAgQAAxkBAAIBG2qnsrqYm0i4behf_m-Jeb5yek7oAAJPHwACfzFBURiGzuK0KrNyPQQ"},
@@ -364,7 +364,6 @@ DATABASE = {
             }
         ]
     },
-
 }
 
 CATEGORIES = [
@@ -518,9 +517,11 @@ async def button_click(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return
 
     if data.startswith("backcat_"):
-        _, cat_key = data.split("_", 1)
+        cat_key = data.split("_", 1)[1]
         category_data = DATABASE.get(cat_key)
-        
+        if not category_data:
+            return
+
         keyboard = []
         for s_idx, show in enumerate(category_data["series"]):
             ep_count = len(show["episodes"])
@@ -540,76 +541,37 @@ async def button_click(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return
 
     if data.startswith("ep_"):
-        remaining, e_idx_str = data.rsplit("_", 1)
-        remaining2, s_idx_str = remaining.rsplit("_", 1)
-        _, cat_key = remaining2.split("_", 1)
-        
-        s_idx = int(s_idx_str)
-        e_idx = int(e_idx_str)
-        
-        show_info = DATABASE[cat_key]["series"][s_idx]
-        ep_info = show_info["episodes"][e_idx]
-        file_id = ep_info["file_id"]
-        
-        app_link = "https://bit.ly/4xlLGEC"
-        
-        caption_text = (
-            f"🎬 *{show_info['name']}* - *{ep_info['name']}*\n\n"
-            f"▶️ Now Playing! Enjoy your show.\n\n"
-            f"⏳ *Come back later for more episodes and daily updates!*\n\n"
-            f"📱 Watch more original short dramas & full episodes on our app:\n"
-            f"🔗 {app_link}"
+        parts = data.split("_")
+        cat_key = parts[1]
+        s_idx = int(parts[2])
+        e_idx = int(parts[3])
+
+        episode = DATABASE[cat_key]["series"][s_idx]["episodes"][e_idx]
+        file_id = episode["file_id"]
+        ep_name = episode["name"]
+        show_name = DATABASE[cat_key]["series"][s_idx]["name"]
+
+        # Send the video to the user
+        await context.bot.send_video(
+            chat_id=query.message.chat_id,
+            video=file_id,
+            caption=f"🎬 *{show_name}* - {ep_name}\n\nJoin our channel: {CHANNEL_USERNAME}",
+            parse_mode="Markdown"
         )
-        
-        try:
-            await context.bot.send_video(
-                chat_id=query.from_user.id,
-                video=file_id,
-                caption=caption_text,
-                parse_mode="Markdown"
-            )
-        except Exception as e:
-            await query.message.reply_text(f"Error loading video. Make sure you replaced the placeholder with a valid file_id.\nDetails: {e}")
-
-async def post_to_channel(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    reply_markup = build_catalog_keyboard()
-    channel_text = (
-        "🎬 *Drama Catalog Master Menu*\n\n"
-        "Tap any category below to instantly open our bot and browse series privately:"
-    )
-    try:
-        await context.bot.send_message(chat_id=CHANNEL_USERNAME, text=channel_text, reply_markup=reply_markup, parse_mode="Markdown")
-        await update.message.reply_text(f"Successfully published the catalog to {CHANNEL_USERNAME}!")
-    except Exception as e:
-        await update.message.reply_text(f"Failed to post. Error: {e}")
-
-class HealthCheckHandler(BaseHTTPRequestHandler):
-    def do_GET(self):
-        self.send_response(200)
-        self.send_header("Content-type", "text/plain")
-        self.end_headers()
-        self.wfile.write(b"Bot is alive!")
-        
-    def log_message(self, format, *args):
-        pass
-
-def run_health_server():
-    port = int(os.environ.get("PORT", 10000))
-    server = HTTPServer(('0.0.0.0', port), HealthCheckHandler)
-    server.serve_forever()
+        return
 
 def main():
-    token = "8974449532:AAFCZcCzAoVbegRGZdOF_zk1nu6baUnko_M"
-    app = ApplicationBuilder().token(token).build()
+    # Replace with your actual Telegram Bot Token from BotFather
+    TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "YOUR_BOT_TOKEN_HERE")
     
+    app = ApplicationBuilder().token(TOKEN).build()
+
     app.add_handler(CommandHandler("start", start))
-    app.add_handler(CommandHandler("postchannel", post_to_channel))
     app.add_handler(CallbackQueryHandler(button_click))
     app.add_handler(MessageHandler(filters.VIDEO | filters.Document.VIDEO, handle_video_upload))
-    
-    print("Bot is up and listening...")
-    app.run_polling(drop_pending_updates=True)
+
+    print("Bot is up and running...")
+    app.run_polling()
 
 if __name__ == "__main__":
-    threading.Thread(target=run_health_server, daemon=True).start()
     main()
