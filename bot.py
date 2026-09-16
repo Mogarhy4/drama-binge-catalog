@@ -570,8 +570,13 @@ async def button_click(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return
 
 def main():
-    token = os.environ.get("BOT_TOKEN", "8974449532:AAH3KyrW1zhLFIwXV_b23eEMU7pfWNwMSRc")
-    app = ApplicationBuilder().token(token).build()
+    # Retrieve token exclusively from the environment
+    token = os.environ.get("BOT_TOKEN")
+    
+    if not token:
+        raise ValueError("BOT_TOKEN environment variable is missing!")
+
+    app = ApplicationBuilder().token(token.strip()).build()
 
     app.add_handler(CommandHandler("start", start))
     app.add_handler(MessageHandler(filters.VIDEO | filters.Document.ALL, handle_video_upload))
