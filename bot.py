@@ -221,8 +221,8 @@ DATABASE = {
                     {"name": "Episode 2", "file_id": "BAACAgQAAxkBAAIBhmqn0alTdIK9pFfd46dkwHnXliFaAAKzHwACfzFBUVdmaza5Wg2ePQQ"},
                     {"name": "Episode 3", "file_id": "BAACAgQAAxkBAAIBhmqn0alTdIK9pFfd46dkwHnXliFaAAKzHwACfzFBUVdmaza5Wg2ePQQ"},
                     {"name": "Episode 4", "file_id": "BQACAgQAAxkBAAIBimqn0b1t6PdfjVmXjusmd0CECpq5AAK2HwACfzFBUe1J02P5rcxrPQQ"},
-                    {"name": "Episode 5", "file_id": "BAACAgQAAxkBAAIBjGqn0cg4hYEhUbcF8cVOF9eUEeCeAAK3HwACfzFBUbdGt4idyrRUPQQ"},
-                    {"name": "Episode 6", "file_id": "BAACAgQAAxkBAAIBjmqn0dCMIiRY-HTQgQ6SuiWo2PNOAAK5HwACfzFBUWwOuYAhWH4dPQQ"}
+                    {"name": "Episode 5", "file_id": "BQACAgQAAxkBAAIBjGqn0cg4hYEhUbcF8cVOF9eUEeCeAAK3HwACfzFBUbdGt4idyrRUPQQ"},
+                    {"name": "Episode 6", "file_id": "BQACAgQAAxkBAAIBjmqn0dCMIiRY-HTQgQ6SuiWo2PNOAAK5HwACfzFBUWwOuYAhWH4dPQQ"}
                 ]
             }
         ]
@@ -542,9 +542,10 @@ async def button_click(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     if data.startswith("ep_"):
         parts = data.split("_")
-        cat_key = parts[1]
-        s_idx = int(parts[2])
-        e_idx = int(parts[3])
+        # Safely parse indices from the end and category key from the middle
+        e_idx = int(parts[-1])
+        s_idx = int(parts[-2])
+        cat_key = "_".join(parts[1:-2])
 
         episode = DATABASE[cat_key]["series"][s_idx]["episodes"][e_idx]
         file_id = episode["file_id"]
